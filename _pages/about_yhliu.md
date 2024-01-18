@@ -1,5 +1,5 @@
-Write your biography here. Tell the world about yourself. Link to your favorite [subreddit](http://reddit.com). You can put a picture in, too. The code is already in, just name your picture `prof_pic.jpg` and put it in the `img/` folder.
+I'm Yuhao Liu, currently a Ph.D. student at University of Pennsylvania, majoring in Computer and Information Science. My advisor is [Dr. Gushu Li](https://sites.google.com/view/gushuli).
 
-Put your address / P.O. box / other info right below your picture. You can also disable any these elements by editing `profile` property of the YAML header of your `_pages/about.md`. Edit `_bibliography/papers.bib` and Jekyll will render your [publications page](/al-folio/publications/) automatically.
+My research interests covers _quantum computing_, _programming language_ and _formal methods_. My goal is to bring formal methods and more semantics into quantum computing to facilitate its usage in other areas.
 
-Link to your social media connections, too. This theme is set up to use [Font Awesome icons](https://fontawesome.com/) and [Academicons](https://jpswalsh.github.io/academicons/), like the ones below. Add your Facebook, Twitter, LinkedIn, Google Scholar, or just disable all of them.
+I previouly also worked in _high-performance computing_ and _domain-specific language_. I'm interested in how to combine productivity with performance in the aspect of programming language and libraries, especially with auto-tuning.
