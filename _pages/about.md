@@ -2,7 +2,7 @@
 layout: about
 title: about
 permalink: /
-subtitle: <a href='https://www.upenn.edu'>University of Pennsylvania</a>. 200 South 33rd St. liuyuhao@seas.upenn.edu
+subtitle: <a href='https://www.upenn.edu'>University of Pennsylvania</a>. 200 South 33rd St. liuyuhao at seas.upenn.edu
 
 profile:
   align: right
