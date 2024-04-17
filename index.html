@@ -6,6 +6,7 @@
 -->
 
 <html lang="en">
+
 <head>
   <title>Yuhao Liu</title>
   <meta charset="utf-8">
@@ -14,100 +15,122 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
   <link href='https://fonts.googleapis.com/css?family=Oswald:700' rel='stylesheet' type='text/css'>
+
+  <style>
+    .paper-entry {
+      margin-bottom: 1em;
+      padding: 5px 10px;
+      background-color: #eaeded;
+    }
+  </style>
 </head>
+
 <body>
 
 
-<!-- Navigation -->
-	<nav class="navbar navbar-inverse navbar-static-top" role="navigation">
-	  <div class="container">
-		<div class="navbar-header">
-		  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-						<span class="sr-only">Toggle navigation</span>
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-					</button>
-		</div>
-
-		<!-- Collect the nav links, forms, and other content for toggling -->
-		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-		  <ul class="nav navbar-nav">
-				  <li><a href="index.html">Home</a></li>
-				  <li><a href="#">Projects</a></li>
-				  <li><a href="#publications">Publications</a></li> 
-				  <li><a href="#">CV</a></li> 
-		  </ul>
-		</div>
-	  </div>
-	</nav>
-  
-  <!-- Page Content -->
+  <!-- Navigation -->
+  <nav class="navbar navbar-inverse navbar-static-top" role="navigation">
     <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+          data-target="#bs-example-navbar-collapse-1">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+      </div>
 
-        <div class="row">
-
-            <!-- Entries Column -->
-            <div class="col-md-8" style="height: 100vh;">
-                
-                <!-- Main Image -->
-                <img class="img-responsive" src="photo.gif" alt=""><br>
-                
-                <div style="margin-top:3%; text-align:justify;">                
-					<p>Lorem ipsum dolor sit amet, consectetur adipiscing <a href="#">elit</a>, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-					
-					<p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
-					
-					<p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
-                </div>
-            </div> 
-
-            <!-- Contact Info on the Sidebar -->
-            <div class="col-md-4">
-                <div style="font-family: 'Oswald', sans-serif; font-size: 32px;"><b>John Doe</b></div><br>
-                <p><b>john at doe.com</b><br>
-                <p>Random Department<br>
-                University of Randomness<br>
-                Street<br>
-                City <br>
-                Country<br>
-                </p>
-            </div>
-            
-            
-            <!-- Links on the Sidebar -->
-            <div class="col-md-4" style="margin-top:2%">
-              <dd><a href="#">Google Scholar</a></dd> 
-              <dd><a href="#">Twitter</a></dd>
-              <dd><a href="#">LinkedIn</a></dd>
-            </div>
-            
-            
-            <!-- Publications -->
-            <div class="col-md-8" style="height: 100vh;">    
-                <h2 id="publications">Publications</h2>
-                
-                <strong>Peer-reviewed</strong><br/>
-                <ul>
-                <li class="paper" words="add, your, keywords, here"><a href="#">Full title</a> Names of the authors</li>
-                </ul>
-            
-                <strong>Technical Reports</strong><br/>
-                <ul>
-                <li class="paper" words="add, your, keywords, here"><a href="#">Full title</a>. Details of the report</li>
-                </ul>
-            </div>
-
-            
-        </div>
-
-
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="#">Projects</a></li>
+          <li><a href="#publications">Publications</a></li>
+          <li><a href="#">CV</a></li>
+        </ul>
+      </div>
     </div>
-    <!-- /.container -->
-    
-    <!-- Other people may like it too! -->
-    <a style="color:#b5bec9;font-size:0.8em; float:right;" href="https://github.com/mavroudisv/plain-academic">Plain Academic</a> 
-    
+  </nav>
+
+  <!-- Page Content -->
+  <div class="container">
+
+    <div class="row">
+
+      <!-- Entries Column -->
+      <div class="col-md-8" style="height: 35vh;">
+
+        <!-- Main Image -->
+        <img class="img-responsive" src="photo.gif" alt=""><br>
+
+        <div style="margin-top:3%; text-align:justify;">
+          <p>Hello, I'm Yuhao Liu, a PhD student advised by <a href="https://sites.google.com/view/gushuli">Gushu Li</a>
+            at the University of Pennsylvania.</p>
+          <p>My research focues on <b>Quantum Computing</b> and <b>Formal Methods</b>. Specifically, I study how to
+            construct quantum compilers and programming languages, reasoning about them and explore more semantics than
+            merely gates and circuits. I hope my study could bring quantum computing to more areas.</p>
+          <p>I'm also interested in <b>High-Performance Computing</b>, especially how programming languages enhance the
+            productivity of developing software for supercomputers.</p>
+        </div>
+      </div>
+
+      <!-- Contact Info on the Sidebar -->
+      <div class="col-md-4">
+        <div style="font-family: 'Oswald', sans-serif; font-size: 32px;"><b>Yuhao Liu</b></div><br>
+        <p><b>liuyuhao at seas.upenn.edu</b><br>
+        <p>Computer and Information Science Department<br>
+          University of Pennsylvania<br>
+          Philadelphia <br>
+          United States<br>
+        </p>
+      </div>
+
+
+      <!-- Links on the Sidebar -->
+      <div class="col-md-4" style="margin-top:2%">
+        <dd><a href="#">Google Scholar</a></dd>
+        <dd><a href="#">Twitter</a></dd>
+        <dd><a href="#">LinkedIn</a></dd>
+      </div>
+
+
+      <!-- Publications -->
+      <div class="col-md-8" style="height: 100vh;">
+        <h2 id="publications">Publications</h2>
+
+        <ul>
+          <li class="paper paper-entry">
+            <a style="font-size: 1.1em;" href="https://arxiv.org/abs/2403.17794" target="_blank">Fermihedral: On the Optimal Compilation
+              for Fermion-to-Qubit Encoding</a><br>
+            <b>Yuhao Liu</b>, Shize Che, Junyu Zhou, Yunong Shi, Gushu Li<br>
+            <i style="font-size: 0.9em;">International Conference on Architectural Support for Programming Languages and
+              Operating Systems (ASPLOS' 24)</i>
+          </li>
+
+          <li class="paper paper-entry">
+            <a style="font-size: 1.1em;" href="https://arxiv.org/abs/2402.02279" target="_blank">Bosehedral: Compiler Optimization for
+              Bosonic Quantum Computing</a><br>
+            Junyu Zhou, <b>Yuhao Liu</b>, Yunong Shi, Ali Javadi-Abhari, Gushu Li<br>
+            <i style="font-size: 0.9em;">International Symposium on Computer Architecture (ISCA' 24)</i>
+          </li>
+
+          <li class="paper paper-entry">
+            <a style="font-size: 1.1em;" target="_blank">Fast Virtual Gate Extraction For
+              Silicon Quantum Dot Devices</a><br>
+            Shize Che, Seongwoo Oh, Haoyun Qin, <b>Yuhao Liu</b>, Anthony Sigillito, Gushu Li<br>
+            <i style="font-size: 0.9em;">Design Automation Conference (DAC' 24)</i>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <!-- /.container -->
+
+  <!-- Other people may like it too! -->
+  <a style="color:#b5bec9;font-size:0.8em; float:right;" href="https://github.com/mavroudisv/plain-academic">Plain
+    Academic</a>
+
 </body>
 
 </html>
