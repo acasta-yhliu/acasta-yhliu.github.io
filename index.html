@@ -23,6 +23,29 @@
       padding: 5px 10px;
       background-color: #eaeded;
     }
+
+    .project-entry {
+      margin-bottom: 1em;
+      padding: 5px 10px;
+      background-color: #eaeded;
+    }
+
+    hr {
+      border: none;
+      border-top: 3px double #d1d1d1;
+      color: #333;
+      overflow: visible;
+      text-align: center;
+      height: 5px;
+    }
+
+    /* hr::after {
+      background: #fff;
+      content: '§';
+      padding: 0 4px;
+      position: relative;
+      top: -13px;
+    } */
   </style>
 </head>
 
@@ -75,16 +98,12 @@
             productivity of developing software for supercomputers.</p>
         </div>
 
+        <hr>
+
         <div>
-          <h2 id="publications">Publications</h2>
+          <h2 id="publications"><b>Pinned Publications</b></h2>
 
           <ul>
-            <li class="paper paper-entry">
-              <a style="font-size: 1.1em;" href="https://arxiv.org/abs/2408.03429" target="_blank">MarQSim: Reconciling Determinism and Randomness in Compiler Optimization for Quantum Simulation</a><br>
-              Xiuqi Cao, Junyu Zhou, <b>Yuhao Liu</b>, Yunong Shi, Gushu Li<br>
-              <i style="font-size: 0.9em;">arXiv Preprint</i>
-            </li>
-              
             <li class="paper paper-entry">
               <a style="font-size: 1.1em;" href="https://doi.org/10.1145/3620666.3651371" target="_blank">Fermihedral:
                 On the Optimal Compilation
@@ -93,6 +112,17 @@
               <i style="font-size: 0.9em;">International Conference on Architectural Support for Programming Languages
                 and
                 Operating Systems (ASPLOS' 24)</i>
+            </li>
+          </ul>
+
+          <h2>Other Publications</h2>
+
+          <ul>
+            <li class="paper paper-entry">
+              <a style="font-size: 1.1em;" href="https://arxiv.org/abs/2408.03429" target="_blank">MarQSim: Reconciling
+                Determinism and Randomness in Compiler Optimization for Quantum Simulation</a><br>
+              Xiuqi Cao, Junyu Zhou, <b>Yuhao Liu</b>, Yunong Shi, Gushu Li<br>
+              <i style="font-size: 0.9em;">arXiv Preprint</i>
             </li>
 
             <li class="paper paper-entry">
@@ -112,10 +142,23 @@
           </ul>
         </div>
 
+        <hr />
+
         <div>
           <h2 id="projects">Projects</h2>
 
+          <ul>
+            <li class="project project-entry">
+              <a style="font-size: 1.1em;" href="https://github.com/acasta-yhliu/xgrid" target="_blank">XGrid</a><br>
+              Domain-specific language for developing partial differential equation solvers
+            </li>
+          </ul>
+
         </div>
+
+        <hr>
+
+
       </div>
 
       <!-- Contact Info on the Sidebar -->
@@ -125,8 +168,6 @@
         <b>yhliu2000 at outlook.com</b> (personal)<br>
         <p>Computer and Information Science Department<br>
           University of Pennsylvania<br>
-          Philadelphia <br>
-          United States<br>
         </p>
       </div>
 
