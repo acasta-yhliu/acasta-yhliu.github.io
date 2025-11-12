@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<!--
+    Plain-Academic by Vasilios Mavroudis
+    Released under the Simplified BSD License/FreeBSD (2-clause) License.
+    https://github.com/mavroudisv/plain-academic
+-->
+
+<html lang="en">
+
+<head>
+    <title>Aurora Data</title>
+    <link rel="icon" type="image/x-icon" href="favicon.png">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href='https://fonts.googleapis.com/css?family=Oswald:700' rel='stylesheet' type='text/css'>
+
+    <script>
+        let magChartInstance = null;
+        let windChartInstance = null;
+
+        async function getHourlySolarWind() {
+            // 1. Use a public proxy service
+            const proxy = 'https://corsproxy.io/?';
+
+            // 2. Prepend the proxy to the NOAA URLs
+            const magUrl = proxy + 'https://services.swpc.noaa.gov/products/solar-wind/mag-2-hour.json';
+            const plasmaUrl = proxy + 'https://services.swpc.noaa.gov/products/solar-wind/plasma-2-hour.json';
+
+            // 3. Calculate the time 1 hour ago
+            const now = new Date();
+            const oneHourAgo = new Date(now.getTime() - (60 * 60 * 1000));
+
+            try {
+                // 4. Fetch from the proxied URLs
+                const [magResponse, plasmaResponse] = await Promise.all([
+                    fetch(magUrl),
+                    fetch(plasmaUrl)
+                ]);
+
+                // ... (the rest of the function is identical to the previous answer) ...
+
+                const magData = await magResponse.json();
+                const plasmaData = await plasmaResponse.json();
+
+                // 5. Helper function to parse and filter data
+                const parseAndFilter = (data, fields) => {
+                    const headers = data[0];
+                    const timeIndex = headers.indexOf('time_tag');
+
+                    const fieldIndices = {};
+                    for (const field of fields) {
+                        fieldIndices[field] = headers.indexOf(field);
+                    }
+
+                    return data
+                        .slice(1) // Skip header
+                        .map(row => {
+                            const readingTime = new Date(row[timeIndex]);
+                            const result = { time: row[timeIndex] };
+                            for (const field of fields) {
+                                result[field] = parseFloat(row[fieldIndices[field]]);
+                            }
+                            return { readingTime, result };
+                        })
+                        .filter(item => item.readingTime >= oneHourAgo)
+                        .map(item => item.result);
+                };
+
+                // 6. Process and return the filtered data
+                const filteredMagData = parseAndFilter(magData, ['bt', 'bz_gsm']);
+                const filteredPlasmaData = parseAndFilter(plasmaData, ['speed']);
+
+                return {
+                    magData: filteredMagData,
+                    plasmaData: filteredPlasmaData
+                };
+
+            } catch (error) {
+                console.error("Error using public proxy:", error);
+                return { magData: [], plasmaData: [] };
+            }
+        }
+
+        function plotCharts(data) {
+            const { magData, plasmaData } = data;
+
+            // --- 1. Format data for the Magnetic Field Chart ---
+
+            // Get all the time labels (e.g., "4:30 PM")
+            const magLabels = magData.map(d =>
+                new Date(d.time).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })
+            );
+            // Get the values for Bt
+            const btValues = magData.map(d => d.bt);
+            // Get the values for Bz
+            const bzValues = magData.map(d => d.bz_gsm);
+
+            // Get the canvas element
+            const magCtx = document.getElementById('magneticFieldChart').getContext('2d');
+
+            // Destroy old chart if it exists (for refreshing data)
+            if (magChartInstance) {
+                magChartInstance.destroy();
+            }
+
+            // Create the chart
+            magChartInstance = new Chart(magCtx, {
+                type: 'line', // This will be a line chart
+                data: {
+                    labels: magLabels,
+                    datasets: [
+                        {
+                            label: 'Bt (Total)',
+                            data: btValues,
+                            borderColor: 'rgba(255, 99, 132, 1)',
+                            backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                            borderWidth: 1.5,
+                            pointRadius: 0,
+                        },
+                        {
+                            label: 'Bz (GSM)',
+                            data: bzValues,
+                            borderColor: 'rgba(54, 162, 235, 1)',
+                            backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                            borderWidth: 1.5,
+                            pointRadius: 0,
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Interplanetary Magnetic Field (IMF)'
+                        }
+                    },
+                    scales: {
+                        y: {
+                            title: {
+                                display: true,
+                                text: 'nT'
+                            }
+                        }
+                    }
+                }
+            });
+
+            // --- 2. Format data for the Solar Wind Chart ---
+            const windLabels = plasmaData.map(d =>
+                new Date(d.time).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })
+            );
+            const speedValues = plasmaData.map(d => d.speed);
+
+            const windCtx = document.getElementById('solarWindChart').getContext('2d');
+
+            if (windChartInstance) {
+                windChartInstance.destroy();
+            }
+
+            windChartInstance = new Chart(windCtx, {
+                type: 'line',
+                data: {
+                    labels: windLabels,
+                    datasets: [
+                        {
+                            label: 'Solar Wind Speed',
+                            data: speedValues,
+                            borderColor: 'rgba(75, 192, 192, 1)',
+                            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                            borderWidth: 1.5,
+                            pointRadius: 0,
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Solar Wind Speed'
+                        }
+                    },
+                    scales: {
+                        y: {
+                            title: {
+                                display: true,
+                                text: 'km/s'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        async function updateData() {
+            try {
+                document.querySelector('p').textContent = 'Fetching latest data...';
+                const solarData = await getHourlySolarWind();
+
+                if (solarData.magData.length === 0 || solarData.plasmaData.length === 0) {
+                    document.querySelector('p').textContent = 'Failed to load data or no data available for the last hour.';
+                } else {
+                    document.querySelector('p').textContent = `Displaying data from NOAA SWPC. Last updated: ${new Date().toLocaleTimeString()}`;
+                    plotCharts(solarData);
+                }
+            } catch (error) {
+                console.error("Failed to run main function:", error);
+                document.querySelector('p').textContent = `An error occurred: ${error.message}`;
+            }
+        }
+    </script>
+
+    <style>
+        .paper-entry {
+            margin-bottom: 1em;
+            padding: 5px 10px;
+            background-color: #eaeded;
+        }
+
+        .project-entry {
+            margin-bottom: 1em;
+            padding: 5px 10px;
+            background-color: #eaeded;
+        }
+
+        hr {
+            border: none;
+            border-top: 3px double #d1d1d1;
+            color: #333;
+            overflow: visible;
+            text-align: center;
+            height: 5px;
+        }
+
+        /* hr::after {
+      background: #fff;
+      content: '§';
+      padding: 0 4px;
+      position: relative;
+      top: -13px;
+    } */
+    </style>
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-inverse navbar-static-top" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                    data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li></li>
+                    <li><a href="./index.html">Home</a></li>
+                    <!-- <li><a href="#publications">Publications</a></li> -->
+                    <!-- <li><a href="#projects">Projects</a></li> -->
+                    <!-- <li><a href="#teaching">Teaching</a></li> -->
+                    <!-- <li><a href="./CV.pdf" target="_blank">CV</a></li> -->
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Content -->
+    <div class="container">
+        <div>
+            <div style="margin-bottom: 10px;"><span style="font-size: 2em;"><b>Aurora Data</b></div>
+            <p>Data from NOAA SWPC. Charts may take a moment to load...</p>
+            <div class="chart-container">
+                <canvas id="magneticFieldChart"></canvas>
+            </div>
+            <div class="chart-container">
+                <canvas id="solarWindChart"></canvas>
+            </div>
+            <button onclick="updateData()">Update</button>
+        </div>
+
+    </div>
+    <!-- /.container -->
+
+    <!-- Other people may like it too! -->
+    <a style="color:#b5bec9;font-size:0.8em; float:right;" href="https://github.com/mavroudisv/plain-academic">Plain
+        Academic</a>
+
+</body>
+
+</html>
